@@ -24,33 +24,30 @@
               mdbook
             ];
           };
-          packages.dockerImage = let
-            book = callPackage ./default.nix {};
-          in
-            dockerTools.buildImage {
-              name = "wiki.adtya.xyz";
-              tag = "latest";
-              fromImage = dockerTools.pullImage {
-                imageName = "nginx";
-                imageDigest =
-                  if stdenv.isAarch64
-                  then "sha256:9956d05e8f945ae928901c985936953e93eeb20f1b612b9851f8a5b02ba07b19"
-                  else "sha256:da86ecb516d88a5b0579cec8687a75f974712cb5091560c06ef6c393ea4936ee";
-                sha256 =
-                  if stdenv.isAarch64
-                  then "1mpy68r0vqkyb8ls2p8msarhsljjkv3pwvl23wbhipygjv1gmqa4"
-                  else "003cpzhjn5myy7myw79gzy9x1mzb2h9b4q1jwwzlhhjv08db9bal";
-                finalImageName = "nginx";
-                finalImageTag = "alpine-slim";
-              };
-              copyToRoot = book;
-              config = {
-                Cmd = ["nginx" "-g" "daemon off;"];
-                ExposedPort = {
-                  "80/tcp" = {};
-                };
+          packages.image = dockerTools.buildImage {
+            name = "wiki.adtya.xyz";
+            tag = "latest";
+            fromImage = dockerTools.pullImage {
+              imageName = "nginx";
+              imageDigest =
+                if stdenv.isAarch64
+                then "sha256:93e4bc3b0434bb3b6a7c0bb354aa78be9c23eb7d1853e329dde765e37f809d50"
+                else "sha256:785ed82af07602663e62d36f462b1f9a212f0587de8737189fff9f258801d7c0";
+              sha256 =
+                if stdenv.isAarch64
+                then "sha256-tFnQPV1SFU0sm2A+rV7xL9UAy7L2zbCzc/09Gu/BILU="
+                else "sha256-J7lQrYyBtqim54u1mAGgw6cve1AJlvew4tg4jjMjkWg=";
+              finalImageName = "nginx";
+              finalImageTag = "stable-alpine-slim";
+            };
+            copyToRoot = callPackage ./default.nix {};
+            config = {
+              Cmd = ["nginx" "-g" "daemon off;"];
+              ExposedPort = {
+                "80/tcp" = {};
               };
             };
+          };
         }
     );
 }
