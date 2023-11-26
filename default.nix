@@ -1,12 +1,12 @@
-{
-  stdenvNoCC,
-  mdbook,
+{ stdenvNoCC
+, mdbook
+,
 }:
 stdenvNoCC.mkDerivation {
   pname = "wiki";
-  version = "latest";
+  version = "2023-11-26";
   src = ./.;
-  buildInputs = [mdbook];
+  buildInputs = [ mdbook ];
   buildPhase = ''
     mdbook build
   '';

@@ -1,6 +1,6 @@
 [book]
-authors = ["Adithya Nair"]
+authors = ["Adithya"]
 language = "en"
 multilingual = false
 src = "src"
-title = "My Brain Dump"
+title = "/usr/share/doc"
