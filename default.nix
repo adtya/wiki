@@ -4,7 +4,7 @@
 }:
 stdenvNoCC.mkDerivation {
   pname = "wiki";
-  version = "2023-11-26";
+  version = "2023-12-04";
   src = ./.;
   buildInputs = [ mdbook ];
   buildPhase = ''
