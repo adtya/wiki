@@ -22,8 +22,9 @@
       with pkgs; {
         formatter = nixpkgs-fmt;
         devShells.default = mkShell {
-          buildInputs = [
+          packages = [
             mdbook
+            tailwindcss-language-server
           ];
         };
         packages.default = callPackage ./default.nix { };
