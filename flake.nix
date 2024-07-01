@@ -18,7 +18,8 @@
         pkgs = import nixpkgs {
           inherit system;
         };
-        package = pkgs.callPackage ./default.nix { };
+        mdbook-alerts = pkgs.callPackage ./mdbook-alerts.nix { };
+        package = pkgs.callPackage ./default.nix { inherit mdbook-alerts; };
         app = pkgs.writeShellScriptBin "app" ''
           trap 'kill "''${child_pid}"; wait "''${child_pid}";' SIGINT SIGTERM
           ${pkgs.merecat}/bin/merecat -n -p 8080 ${package}/share/web &
@@ -29,13 +30,13 @@
       {
         formatter = pkgs.nixpkgs-fmt;
         devShells.default = pkgs.mkShell {
-          packages = with pkgs; [
-            mdbook
-            tailwindcss-language-server
+          packages = [
+            pkgs.mdbook
+            mdbook-alerts
           ];
         };
         packages = {
-          inherit app;
+          inherit app mdbook-alerts;
           default = package;
         };
       }
