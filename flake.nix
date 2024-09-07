@@ -18,8 +18,7 @@
         pkgs = import nixpkgs {
           inherit system;
         };
-        mdbook-alerts = pkgs.callPackage ./mdbook-alerts.nix { };
-        package = pkgs.callPackage ./default.nix { inherit mdbook-alerts; };
+        package = pkgs.callPackage ./default.nix { };
         app = pkgs.writeShellScriptBin "app" ''
           trap 'kill "''${child_pid}"; wait "''${child_pid}";' SIGINT SIGTERM
           ${pkgs.merecat}/bin/merecat -n -p 8080 ${package}/share/web &
@@ -32,11 +31,11 @@
         devShells.default = pkgs.mkShell {
           packages = [
             pkgs.mdbook
-            mdbook-alerts
+            pkgs.mdbook-alerts
           ];
         };
         packages = {
-          inherit app mdbook-alerts;
+          inherit app;
           default = package;
         };
       }
