@@ -31,7 +31,6 @@
         devShells.default = pkgs.mkShell {
           packages = [
             pkgs.mdbook
-            pkgs.mdbook-alerts
           ];
         };
         packages = {

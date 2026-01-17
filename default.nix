@@ -1,13 +1,12 @@
 { stdenvNoCC
 , mdbook
-, mdbook-alerts
 ,
 }:
 stdenvNoCC.mkDerivation {
   pname = "wiki";
-  version = "2024-07-02";
+  version = "2026-01-17";
   src = ./.;
-  buildInputs = [ mdbook mdbook-alerts ];
+  buildInputs = [ mdbook ];
   buildPhase = ''
     mdbook build
   '';
